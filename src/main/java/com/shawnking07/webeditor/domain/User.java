@@ -1,10 +1,7 @@
 package com.shawnking07.webeditor.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.shawnking07.webeditor.viewmodel.UserViewModel;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
@@ -14,7 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -36,14 +33,13 @@ public class User implements Serializable {
     private String username;
 
     @Column(nullable = false)
-    @JsonIgnore
     private String password;
 
     @CreatedDate
-    private Instant createTime;
+    private LocalDateTime createTime;
 
     @LastModifiedDate
-    private Instant updateTime;
+    private LocalDateTime updateTime;
 
     @Column
     private Boolean isActive = true;

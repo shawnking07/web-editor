@@ -19,4 +19,11 @@ public interface UserService {
      * @return token
      */
     String login(UserViewModel userViewModel);
+
+    /**
+     * change user info
+     *
+     * @param userViewModel user info
+     */
+    void modifyInfo(UserViewModel userViewModel);
 }

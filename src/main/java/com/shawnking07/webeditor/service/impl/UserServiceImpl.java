@@ -3,17 +3,18 @@ package com.shawnking07.webeditor.service.impl;
 import com.shawnking07.webeditor.domain.Role;
 import com.shawnking07.webeditor.domain.RoleName;
 import com.shawnking07.webeditor.domain.User;
+import com.shawnking07.webeditor.exception.ConflictException;
 import com.shawnking07.webeditor.repository.RoleRepository;
 import com.shawnking07.webeditor.repository.UserRepository;
 import com.shawnking07.webeditor.security.JwtTokenProvider;
 import com.shawnking07.webeditor.service.UserService;
+import com.shawnking07.webeditor.util.UserUtil;
 import com.shawnking07.webeditor.viewmodel.UserViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -41,14 +42,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Long signup(UserViewModel userViewModel) {
+    public Long signup(UserViewModel userViewModel) throws ConflictException {
         User user = new User();
         user.setUsername(userViewModel.getUsername());
         user.setPassword(passwordEncoder.encode(userViewModel.getPassword()));
         Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
                 .orElseThrow();
         user.setRoles(Collections.singleton(userRole));
-        return userRepository.save(user).getId();
+        try {
+            return userRepository.save(user).getId();
+        } catch (Exception e) {
+            throw new ConflictException("username has been used");
+        }
     }
 
     @Override
@@ -60,8 +65,14 @@ public class UserServiceImpl implements UserService {
                 )
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = tokenProvider.generateToken(authentication);
-        userRepository.existsByUsernameAndPassword(userViewModel.getUsername(), userViewModel.getPassword());
-        return jwt;
+        return tokenProvider.generateToken(authentication);
+    }
+
+    @Override
+    public void modifyInfo(UserViewModel userViewModel) {
+        User user = userRepository.findById(UserUtil.getCurrentUserId())
+                .orElseThrow();
+        user.setPassword(passwordEncoder.encode(userViewModel.getPassword()));
+        userRepository.save(user);
     }
 }

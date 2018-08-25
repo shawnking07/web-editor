@@ -1,9 +1,9 @@
 package com.shawnking07.webeditor.web;
 
+import com.shawnking07.webeditor.bean.Response;
 import com.shawnking07.webeditor.service.UserService;
 import com.shawnking07.webeditor.viewmodel.UserViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,12 +25,18 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<String> login(@Valid @RequestBody UserViewModel userViewModel) {
-        return ResponseEntity.ok(userService.login(userViewModel));
+    public Response login(@Valid @RequestBody UserViewModel userViewModel) {
+        return Response.ok(userService.login(userViewModel));
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public ResponseEntity<Long> signup(@Valid @RequestBody UserViewModel userViewModel) {
-        return ResponseEntity.ok(userService.signup(userViewModel));
+    public Response signup(@Valid @RequestBody UserViewModel userViewModel) {
+        return Response.ok(userService.signup(userViewModel));
+    }
+
+    @RequestMapping(value = "/modify", method = RequestMethod.POST)
+    public Response modify(@Valid @RequestBody UserViewModel userViewModel) {
+        userService.modifyInfo(userViewModel);
+        return Response.ok("success");
     }
 }

@@ -27,7 +27,7 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
         return new UserDetailsImpl(user);
     }
 
-    public UserDetails loadUserById(Long id) {
+    UserDetails loadUserById(Long id) {
         User user = userRepository.findById(id).orElseThrow();
         return new UserDetailsImpl(user);
     }
