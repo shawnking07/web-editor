@@ -18,3 +18,6 @@ spring:
 server:
   servlet:
     path: /api
+dockerclient:
+  url: http://localhost:2375
+  connection-pool-size: 1000

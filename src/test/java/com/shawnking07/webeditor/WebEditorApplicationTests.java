@@ -2,12 +2,9 @@ package com.shawnking07.webeditor;
 
 import com.shawnking07.webeditor.domain.User;
 import com.shawnking07.webeditor.repository.UserRepository;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -28,7 +25,7 @@ public class WebEditorApplicationTests {
 
     @Test
     public void delete() {
-        userRepository.deleteById(1L);
+        userRepository.deleteById(3L);
     }
 
 }

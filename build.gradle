@@ -26,7 +26,7 @@ repositories {
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
-    compile('org.springframework.boot:spring-boot-starter-data-redis')
+//    compile('org.springframework.boot:spring-boot-starter-data-redis')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile "org.springframework.boot:spring-boot-starter-security"
     compile 'com.spotify:docker-client:8.11.7'
@@ -40,8 +40,19 @@ dependencies {
             'io.jsonwebtoken:jjwt-jackson:0.10.5'
     runtime('org.springframework.boot:spring-boot-devtools')
     runtime('mysql:mysql-connector-java')
-    // https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-runtime
-    compile group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.0.1'
     compileOnly('org.projectlombok:lombok')
     testCompile('org.springframework.boot:spring-boot-starter-test')
+
+    compileOnly "org.springframework.boot:spring-boot-configuration-processor"
+
+    // JDK10 support
+    // https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-runtime
+    compile group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.0.1'
+    // https://mvnrepository.com/artifact/org.glassfish.jersey.inject/jersey-hk2
+    compile group: 'org.glassfish.jersey.inject', name: 'jersey-hk2', version: '2.27'
+    // https://mvnrepository.com/artifact/org.glassfish.jersey.bundles.repackaged/jersey-guava
+    compile group: 'org.glassfish.jersey.bundles.repackaged', name: 'jersey-guava', version: '2.25.1'
+    // https://mvnrepository.com/artifact/javax.activation/activation
+    compile group: 'javax.activation', name: 'activation', version: '1.1.1'
+
 }
