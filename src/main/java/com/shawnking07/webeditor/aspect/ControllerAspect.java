@@ -38,7 +38,7 @@ public class ControllerAspect implements Ordered {
             String method = request.getMethod();
             String uri = request.getRequestURI();
             String queryString = request.getQueryString();
-            logger.info("Request url: {}, method: {}, uri: {}, params: {}", url, method, uri, queryString);
+            logger.info("Request url: {}, method: {}, uri: {}, urlParams: {}", url, method, uri, queryString);
 
             Object result = pjp.proceed();
             logger.info("Response: " + result);

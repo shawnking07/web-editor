@@ -36,7 +36,6 @@ public class UserController {
 
     @RequestMapping(value = "/modify", method = RequestMethod.POST)
     public Response modify(@Valid @RequestBody UserViewModel userViewModel) {
-        userService.modifyInfo(userViewModel);
-        return Response.ok("success");
+        return Response.ok(userService.modifyInfo(userViewModel));
     }
 }

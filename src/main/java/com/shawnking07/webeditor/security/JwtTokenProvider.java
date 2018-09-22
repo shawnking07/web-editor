@@ -20,7 +20,7 @@ public class JwtTokenProvider {
 
     private static String jwtSecret = "shawn-web-editor.shawn-web-editor.shawn-web-editor.shawn-web-editor";
 
-    private static int jwtExpirationInMs = 3600 * 24;
+    private static int jwtExpirationInMs = 3600 * 24 * 1000;
 
     private static SecretKey keys = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
 
@@ -50,7 +50,7 @@ public class JwtTokenProvider {
 
     boolean validateToken(String authToken) {
         try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+            Jwts.parser().setSigningKey(keys).parseClaimsJws(authToken);
             return true;
         } catch (MalformedJwtException ex) {
             logger.error("Invalid JWT token");

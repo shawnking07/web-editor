@@ -12,12 +12,11 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     /**
-     * Login check
+     * Sign up check
      * @param username Username
-     * @param password Password
      * @return isExist
      */
-    Boolean existsByUsernameAndPassword(String username, String password);
+    Boolean existsByUsername(String username);
 
     /**
      * Search by username which is unique

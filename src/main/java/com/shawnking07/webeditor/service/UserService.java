@@ -8,6 +8,7 @@ import com.shawnking07.webeditor.viewmodel.UserViewModel;
 public interface UserService {
     /**
      * sign up
+     *
      * @param userViewModel user info
      * @return Long userId
      */
@@ -15,6 +16,7 @@ public interface UserService {
 
     /**
      * login
+     *
      * @param userViewModel user info
      * @return token
      */
@@ -24,6 +26,7 @@ public interface UserService {
      * change user info
      *
      * @param userViewModel user info
+     * @return token
      */
-    void modifyInfo(UserViewModel userViewModel);
+    String modifyInfo(UserViewModel userViewModel);
 }

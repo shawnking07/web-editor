@@ -43,17 +43,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Long signup(UserViewModel userViewModel) throws ConflictException {
+        if (userRepository.existsByUsername(userViewModel.getUsername())) {
+            throw new ConflictException("username has been used");
+        }
         User user = new User();
         user.setUsername(userViewModel.getUsername());
         user.setPassword(passwordEncoder.encode(userViewModel.getPassword()));
         Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
                 .orElseThrow();
         user.setRoles(Collections.singleton(userRole));
-        try {
-            return userRepository.save(user).getId();
-        } catch (Exception e) {
-            throw new ConflictException("username has been used");
-        }
+        return userRepository.save(user).getId();
     }
 
     @Override
@@ -69,10 +68,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void modifyInfo(UserViewModel userViewModel) {
+    public String modifyInfo(UserViewModel userViewModel) {
         User user = userRepository.findById(UserUtil.getCurrentUserId())
                 .orElseThrow();
         user.setPassword(passwordEncoder.encode(userViewModel.getPassword()));
         userRepository.save(user);
+        return this.login(userViewModel);
     }
 }

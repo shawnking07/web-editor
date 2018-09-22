@@ -21,4 +21,12 @@ public class Response {
         response.setData(data);
         return response;
     }
+
+    public static Response ok() {
+        Response response = new Response();
+        response.setTimestamp(Instant.now());
+        response.setStatus(HttpStatus.OK.value());
+        response.setData("success");
+        return response;
+    }
 }
