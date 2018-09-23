@@ -28,6 +28,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
 //    compile('org.springframework.boot:spring-boot-starter-data-redis')
     compile('org.springframework.boot:spring-boot-starter-web')
+    compile("org.springframework.boot:spring-boot-starter-actuator")
     compile "org.springframework.boot:spring-boot-starter-security"
     compile 'com.spotify:docker-client:8.11.7'
     compile "com.zaxxer:HikariCP"

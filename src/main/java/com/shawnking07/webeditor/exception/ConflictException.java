@@ -1,7 +1,7 @@
 package com.shawnking07.webeditor.exception;
 
 /**
- * Business Exception
+ * Conflict Exception
  *
  * @author shawn
  */

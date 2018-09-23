@@ -5,6 +5,7 @@ import com.shawnking07.webeditor.viewmodel.FileTreeNode;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.Future;
 
 /**
  * File Tree Service
@@ -17,11 +18,12 @@ public interface FileService {
     /**
      * Async get file tree with path
      *
+     * @param userId id
      * @param dir folder path
      * @return File tree
      * @throws IOException NIO
      */
-    List<FileTreeNode> getFileTree(@NotNull String dir) throws IOException;
+    Future<List<FileTreeNode>> getFileTree(@NotNull Long userId, @NotNull String dir) throws IOException;
 
     /**
      * Create folder for user with his ID

@@ -18,6 +18,9 @@ spring:
 server:
   servlet:
     path: /api
-dockerclient:
+  port: 8080
+docker-client:
   url: http://localhost:2375
   connection-pool-size: 1000
+file-config:
+  base-path: file:/E:/filesystems-test

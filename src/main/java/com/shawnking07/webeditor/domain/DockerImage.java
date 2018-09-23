@@ -4,13 +4,14 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 /**
  * @author shawn
  */
 @Data
 @Entity
-public class DockerImage {
+public class DockerImage implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -5,12 +5,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
+ * Configuration for FileService
+ *
  * @author shawn
  */
 @Component
-@ConfigurationProperties(prefix = "docker-client")
+@ConfigurationProperties(prefix = "file-config")
 @Data
-public class DockerClientProperties {
-    private String url;
-    private int connectionPoolSize;
+public class FileProperties {
+    private String basePath;
 }
