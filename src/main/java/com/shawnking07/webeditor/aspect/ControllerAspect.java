@@ -1,11 +1,10 @@
 package com.shawnking07.webeditor.aspect;
 
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.web.context.request.RequestAttributes;
@@ -17,11 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author shawn
  */
+@Slf4j
 @Aspect
 @Configuration
 public class ControllerAspect implements Ordered {
-    private final Logger logger = LoggerFactory.getLogger(ControllerAspect.class);
-
     @Pointcut("@annotation(org.springframework.web.bind.annotation.RequestMapping)")
     public void controllerAspect() {
     }
@@ -38,13 +36,13 @@ public class ControllerAspect implements Ordered {
             String method = request.getMethod();
             String uri = request.getRequestURI();
             String queryString = request.getQueryString();
-            logger.info("Request url: {}, method: {}, uri: {}, urlParams: {}", url, method, uri, queryString);
+            log.info("Request url: {}, method: {}, uri: {}, urlParams: {}", url, method, uri, queryString);
 
             Object result = pjp.proceed();
-            logger.info("Response: " + result);
+            log.info("Response: " + result);
             return result;
         } catch (NullPointerException e) {
-            logger.error(e.getMessage());
+            log.error(e.getMessage());
             return new Object();
         }
     }

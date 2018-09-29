@@ -2,8 +2,7 @@ package com.shawnking07.webeditor.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
@@ -14,10 +13,9 @@ import java.util.Date;
 /**
  * @author shawn
  */
+@Slf4j
 @Component
 public class JwtTokenProvider {
-    private static final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
-
     private static String jwtSecret = "shawn-web-editor.shawn-web-editor.shawn-web-editor.shawn-web-editor";
 
     private static int jwtExpirationInMs = 3600 * 24 * 1000;
@@ -53,13 +51,13 @@ public class JwtTokenProvider {
             Jwts.parser().setSigningKey(keys).parseClaimsJws(authToken);
             return true;
         } catch (MalformedJwtException ex) {
-            logger.error("Invalid JWT token");
+            log.error("Invalid JWT token");
         } catch (ExpiredJwtException ex) {
-            logger.error("Expired JWT token");
+            log.error("Expired JWT token");
         } catch (UnsupportedJwtException ex) {
-            logger.error("Unsupported JWT token");
+            log.error("Unsupported JWT token");
         } catch (IllegalArgumentException ex) {
-            logger.error("JWT claims string is empty.");
+            log.error("JWT claims string is empty.");
         }
         return false;
     }
