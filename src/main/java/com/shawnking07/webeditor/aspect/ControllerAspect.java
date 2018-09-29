@@ -29,7 +29,6 @@ public class ControllerAspect implements Ordered {
         RequestAttributes ra = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes sra = (ServletRequestAttributes) ra;
         try {
-            assert sra != null;
             HttpServletRequest request = sra.getRequest();
 
             String url = request.getRequestURL().toString();

@@ -1,21 +1,18 @@
 package com.shawnking07.webeditor.domain;
 
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * @author shawn
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-@EntityListeners(AuditingEntityListener.class)
-public class ErrorLog implements Serializable {
+public class ErrorLog extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,7 +32,4 @@ public class ErrorLog implements Serializable {
     @Column
     @NotNull
     private String ip;
-
-    @CreatedDate
-    private LocalDateTime createTime;
 }

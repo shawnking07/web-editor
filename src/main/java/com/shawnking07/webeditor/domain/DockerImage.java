@@ -1,17 +1,18 @@
 package com.shawnking07.webeditor.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 
 /**
  * @author shawn
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-public class DockerImage implements Serializable {
+public class DockerImage extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
