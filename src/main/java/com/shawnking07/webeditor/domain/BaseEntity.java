@@ -11,8 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
-import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 /**
  * @author shawn
@@ -21,19 +20,19 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(
-        value = {"createdTime", "updatedTime", "isActive"},
+        value = {"createDate", "updateDate", "isActive"},
         allowGetters = true
 )
 @Where(clause = "is_active = true")
 @SQLDelete(sql = "UPDATE user SET is_active = false WHERE id=?")
-abstract class BaseEntity implements Serializable {
+abstract class BaseEntity {
     @Column(nullable = false, updatable = false)
     @CreatedDate
-    private LocalDateTime createTime;
+    private Instant createDate;
 
     @Column(nullable = false)
     @LastModifiedDate
-    private LocalDateTime updateTime;
+    private Instant updateDate;
 
     @Column(nullable = false)
     private Boolean isActive = true;

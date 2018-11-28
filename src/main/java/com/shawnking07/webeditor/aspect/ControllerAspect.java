@@ -12,6 +12,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 /**
  * @author shawn
@@ -29,13 +30,12 @@ public class ControllerAspect implements Ordered {
         RequestAttributes ra = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes sra = (ServletRequestAttributes) ra;
         try {
-            HttpServletRequest request = sra.getRequest();
-
+            HttpServletRequest request = Objects.requireNonNull(sra).getRequest();
             String url = request.getRequestURL().toString();
             String method = request.getMethod();
-            String uri = request.getRequestURI();
             String queryString = request.getQueryString();
-            log.info("Request url: {}, method: {}, uri: {}, urlParams: {}", url, method, uri, queryString);
+            String remoteHost = request.getRemoteHost();
+            log.info("Request url: {}, method: {}, urlParams: {}, host: {}", url, method, queryString, remoteHost);
 
             Object result = pjp.proceed();
             log.info("Response: " + result);

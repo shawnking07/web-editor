@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String modifyInfo(UserViewModel userViewModel) {
-        User user = userRepository.findById(UserUtil.getCurrentUserId())
+        User user = userRepository.findByUsername(UserUtil.getCurrentUsernameFromSecurity())
                 .orElseThrow();
         user.setPassword(passwordEncoder.encode(userViewModel.getPassword()));
         userRepository.save(user);

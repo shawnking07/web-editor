@@ -42,7 +42,7 @@ public class GlobalControllerExceptionHandler {
     @ExceptionHandler(SysRuntimeException.class)
     @ResponseBody
     public ErrorInfo handleSysRuntime(HttpServletRequest request, Exception e) {
-        errorLogService.create(e, request.getRemoteAddr(), UserUtil.getCurrentUserId(), request.getRequestURL().toString());
+        errorLogService.create(e, request.getRemoteAddr(), UserUtil.getCurrentUserIdFromRequest(), request.getRequestURL().toString());
         return new ErrorInfo(Instant.now(),
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),
